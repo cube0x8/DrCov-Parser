@@ -5,7 +5,7 @@ A parser for analyzing DrCov code coverage files. The code has been isolated fro
 ## What it does
 
 The parser:
-- **Reads and decompresses** drcov files (including those compressed with gzip)
+- **Reads and decompresses** drcov files (files gzip compressed will be automatically decompressed)
 - **Analyzes coverage data** extracted from instrumented program executions
 - **Organizes information** into easily queryable data structures
 - **Supports multiple versions** of the drcov format (v1, v2, v3, v4)
@@ -23,7 +23,7 @@ For each drcov file, the parser extracts:
   - Offset from the module's base address
   - Size in bytes
   - Containing module
-  - Hit count (number of times executed, in case of full-trace was specified during generation)
+  - Hit count (number of times executed, in case full-trace was specified during generation)
 
 ## How to use it
 
@@ -53,12 +53,12 @@ for module in modules:
     print(f"Module: {module.filename} @ {hex(module.base)}")
 
 # Get basic blocks for a specific module
-blocks = parser.get_blocks_by_module('ceva_emu.cvd')
+blocks = parser.get_blocks_by_module('module_name.so')
 for block in blocks:
     print(f"Block at {hex(block.offset)}, size {block.size}")
 
 # Get the hit count map for a module
-hit_counts = parser.get_hit_count_map_by_module('ceva_emu.cvd')
+hit_counts = parser.get_hit_count_map_by_module('module_name.so')
 for start_addr, count in hit_counts:
     print(f"{hex(start_addr)}: {count} hits")
 ```
